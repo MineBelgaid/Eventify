@@ -1,0 +1,78 @@
+NVDA:
+  strategy: "selenium_strategy"
+  base_url: "https://investor.nvidia.com/events-and-presentations/events-and-presentations/default.aspx"
+  config:
+    wait_for: "//h2[.='Events']"
+    container_selector: "//h2[.='Events']/following-sibling::div/div"
+    fields:
+      dateTime:
+        selector: './/div[@class="module_date-time"]'
+        format: "%B %d, %Y %I:%M %p"
+        regex: "([A-Za-z]+ [0-9]+, [0-9]+ [0-9]+:[0-9]+ [A-Z]+)"
+      headline:
+        selector: './/a[@class="module_headline-link"]'
+      webcastLink:
+        selector: './/a[@class="module_link module_webcast-link"]'
+        attribute: 'href'
+        urljoin: true
+      eventUrl:
+        selector: './/a[@class="module_headline-link"]'
+        attribute: 'href'
+        urljoin: true
+      videoUrl:
+        selector: './/a[@class="module_link module_presentation-link Video"]'
+        attribute: 'href'
+        urljoin: true
+      presentationUrl:
+        selector: './/a[@class="module_link module_presentation-link Document"]'
+        attribute: 'href'
+        urljoin: true
+WMT:
+  strategy: "selenium_strategy"
+  base_url: "https://corporate.walmart.com/newsroom/events"
+  config:
+    wait_for: "//div[@class='EventListPageCorporate-contentWell']"
+    container_selector: "//div[@class='EventListPageCorporate-contentWell']/section[1]//li"
+    fields:
+      dateTime:
+        selector: ".//div[@class='CorporateEvent-item-date']"
+        format: "%b. %d, %Y | %I:%M %p"
+        regex: "([A-Za-z]+\\. [0-9]+, [0-9]+ \\| [0-9]+:[0-9]+ [A-Za-z/]+)"
+      title:
+        selector: ".//div[@class='CorporateEvent-item-title']/a[@class='Link default']"
+      eventUrl:
+        selector: ".//div[@class='CorporateEvent-item-title']/a[@class='Link default']"
+        attribute: 'href'
+        urljoin: true
+AMZN:
+  strategy: "selenium_strategy"
+  base_url: "https://ir.aboutamazon.com/events/default.aspx"
+  config:
+    wait_for: '//div[@class="module_item-wrap background--grey"]'
+    container_selector: '//div[@class="module_item-wrap background--grey"]'
+    fields:
+      dateTime:
+        selector: './/span[@class="module_date-text"]'
+      title:
+        selector: './/div[@class="module_headline"]'
+      eventUrl:
+        selector: './/a[@class="module_view-all-link"]'
+        attribute: 'href'
+        urljoin: true
+XOM:
+  strategy: "selenium_strategy"
+  base_url: "https://investor.exxonmobil.com/news-events/ir-calendar"
+  config:
+    wait_for: "//main[@id='mainContent']/article"
+    container_selector: "//main[@id='mainContent']/article"
+    fields:
+      dateTime:
+        selector: ".//time"
+      title:
+        selector: ".//h2"
+        sub_selector:
+          link: ".//a"
+      eventUrl:
+        selector: ".//h2//a"
+        attribute: 'href'
+        urljoin: true
